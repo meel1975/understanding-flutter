@@ -3,13 +3,14 @@ A Comprehensive Exploration of Key Concepts and Lifecycles
 
 ## Topics: 
 ### Junior
-- What is Flutter?
-- Dart
-- OOP Concepts 
-- Dart Collections
-- Asynchronous programming basics
-- Stateful vs Stateless widgets
-- BuildContext
+- What is Flutter? x
+- Dart x
+- OOP Concepts x
+- Dart Collections x
+- Basics of Asynchronous Programming x
+- Stateful vs Stateless widgets x
+- Lifecycle methods x
+- BuildContext x
 - Packages vs plugins
 - Hot reload & Hot restart 
 - UI (Scaffold, Row, Column...)
@@ -83,50 +84,239 @@ Key features and characteristics:
 
 Overall, Dart is a modern, expressive, and productive language that offers a powerful set of features for building a variety of applications across different platforms. Its simplicity, flexibility, and strong tooling make it an attractive choice for developers looking to build high-quality software efficiently.
 
-## Hot restart vs Hot reload
-### Hot Reload:
-Developers make changes to their Flutter code and see those changes reflected almost instantly in the running app. Tries to only changed the widgets and keep the state.
-With Hot Reload, the app state is preserved, meaning that any stateful changes (such as text entered into a text field) are maintained across reloads.
-It's a quick way to iterate on UI changes, fix bugs, and experiment with code without losing the current state of the app.
+## OOP Concepts
 
-### Hot Restart:
-Completely restarts the Flutter app. Recompiled and restarted from scratch. The app state is reset to its initial state. This means that any stateful changes made during the previous session are lost. Re run the *main function*.
-Hot Restart is useful when you've made changes that require modifications to the app's structure, such as adding or removing dependencies, modifying the app's entry point, or changing platform-specific code.
-It involves recompiling and restarting the entire app. Both offer different advantages depending on the situation.
+Dart is an object-oriented programming (OOP) language, meaning it supports the fundamental principles of OOP. Here are the main OOP concepts in Dart:
 
-## What packages did you use?
-- GraphQL Flutter
-- Cupertino Icons
-- Google Fonts
-- SVG Flutter
-- Flutter Native Splash
+1. **Classes and Objects**:
+   - Classes are blueprints for creating objects. They define the properties (attributes) and behaviors (methods) of objects.
+   - Objects are instances of classes. They represent individual entities with their own state and behavior.
+   - Dart uses the `class` keyword to define classes.
 
-### Packages vs plugins
-#### Packages:
-A package is a collection of Dart files that provides a set of functionalities or features that can be easily integrated.
-- Can be published to the Dart package repository (pub.dev) for others to use, or they can be private and used only within your own projects.
-- Typically contain reusable code, such as utility functions, UI components, API wrappers, or other Dart libraries.
-> Examples of packages include **http** for making HTTP requests, **shared_preferences** for storing simple data persistently, and **flutter_bloc** for implementing the BLoC state management pattern.
+   ```dart
+   class Person {
+     String name;
+     int age;
 
-#### Plugins:
-Plugins in Flutter are similar to packages but are specifically designed to interact with native code on the platform level (Android or iOS).
-Plugins typically wrap native code libraries (written in Java/Kotlin for Android or Objective-C/Swift for iOS) and expose their functionalities to Dart code in Flutter.
-Plugins are used when you need to access platform-specific features that are not available through Flutter's existing APIs.
-> Examples of plugins include **camera** for accessing the device's camera, **firebase_core** for integrating Firebase services, and **location** for retrieving the device's location.
+     void sayHello() {
+       print('Hello, my name is $name and I am $age years old.');
+     }
+   }
 
-## Build Types
-It's refer to different configurations of app's build settings for different environments, such as development, testing, staging, and production. These build types are defined in your app's build.gradle file (for Android) and Info.plist file (for iOS), and they determine various aspects of the build process, including optimization levels, signing configurations, and resource handling.
+   void main() {
+     var person = Person();
+     person.name = 'John';
+     person.age = 30;
+     person.sayHello(); // Output: Hello, my name is John and I am 30 years old.
+   }
+   ```
 
-### Debug
-Used for development purposes. It typically includes debugging symbols, minimal optimizations, and additional development features like *hot reload*. Debug builds are not optimized for performance but provide a fast development cycle.
-### Release
-Optimized for performance and size. They exclude debugging symbols and enable various compiler optimizations to make the app run faster and consume less memory. *Release builds are suitable for production deployment.*
-### Profile
-Optimized for profiling and performance analysis. They include some level of optimization but still retain debugging information to allow for profiling and performance monitoring tools to gather data. Profile builds are useful for identifying performance bottlenecks in your app.
-### Custom Build Types
-Tailored for specific requirements. For example, you might create a "staging" build type with configurations specific to your staging environment, such as pointing to a different API endpoint or enabling additional logging.
+2. **Inheritance**:
+   - Inheritance is a mechanism where a class (subclass) can inherit properties and behaviors from another class (superclass).
+   - Dart supports single inheritance, meaning a subclass can only inherit from one superclass.
+   - Use the `extends` keyword to establish inheritance.
 
-> Each build type can have its own set of configurations, such as signing keys, package names, and resource directories, allowing you to customize your app's behavior and appearance for different deployment scenarios. When you run `flutter run` or `flutter build`, you can specify the desired build type using the `--release`, `--profile`, or `--debug` flags, or by specifying a custom build type if you've defined one.
+   ```dart
+   class Animal {
+     void eat() {
+       print('Animal is eating.');
+     }
+   }
+
+   class Dog extends Animal {
+     void bark() {
+       print('Woof! Woof!');
+     }
+   }
+
+   void main() {
+     var dog = Dog();
+     dog.eat(); // Output: Animal is eating.
+     dog.bark(); // Output: Woof! Woof!
+   }
+   ```
+
+3. **Encapsulation**:
+   - Encapsulation is the bundling of data (properties) and methods that operate on that data within a single unit (class).
+   - It helps hide the internal implementation details of a class and provides controlled access to its members.
+   - Dart supports encapsulation through the use of access modifiers like `public`, `private`, and `protected`.
+
+   ```dart
+   class Counter {
+     int _count = 0; // Private variable
+
+     void increment() {
+       _count++;
+     }
+
+     int getCount() {
+       return _count;
+     }
+   }
+
+   void main() {
+     var counter = Counter();
+     counter.increment();
+     print(counter.getCount()); // Output: 1
+   }
+   ```
+
+4. **Polymorphism**:
+   - Polymorphism allows objects of different classes to be treated as objects of a common superclass.
+   - Dart supports method overriding, where a subclass can provide a specific implementation of a method defined in its superclass.
+
+   ```dart
+   class Animal {
+     void makeSound() {
+       print('Animal makes a sound.');
+     }
+   }
+
+   class Dog extends Animal {
+     @override
+     void makeSound() {
+       print('Dog barks.');
+     }
+   }
+
+   void main() {
+     Animal animal = Dog();
+     animal.makeSound(); // Output: Dog barks.
+   }
+   ```
+
+## Dart Collections
+Dart provides a variety of collection types to store and manipulate data.
+
+1. **List**:
+   - A List is an ordered collection of elements.
+   - Elements can be accessed by their index, starting from zero.
+   - Lists can grow or shrink dynamically as elements are added or removed.
+   - Dart provides two main types of lists: `List` and `List<T>` (a generic list).
+   - Example:
+
+   ```dart
+   List<int> numbers = [1, 2, 3, 4, 5];
+   numbers.add(6); // Add an element
+   numbers.removeAt(0); // Remove an element by index
+   ```
+
+2. **Set**:
+   - A Set is an unordered collection of unique elements.
+   - Sets do not allow duplicate elements; if you add an element that already exists, it won't be added again.
+   - Dart provides two main types of sets: `Set` and `Set<T>` (a generic set).
+   - Example:
+
+   ```dart
+   Set<String> fruits = {'apple', 'banana', 'orange'};
+   fruits.add('apple'); // Duplicate element won't be added
+   ```
+
+3. **Map**:
+   - A Map is a collection of key-value pairs.
+   - Keys are unique within the map, and each key maps to a single value.
+   - Maps provide efficient lookup and retrieval of values based on their keys.
+   - Dart provides two main types of maps: `Map` and `Map<K, V>` (a generic map).
+   - Example:
+
+   ```dart
+   Map<String, int> ages = {
+     'John': 30,
+     'Alice': 25,
+     'Bob': 35,
+   };
+   ages['John']; // Access value by key
+   ```
+
+4. **Queue**:
+   - A Queue is a collection that operates on a first-in, first-out (FIFO) basis.
+   - Elements are inserted at the end of the queue and removed from the front of the queue.
+   - Dart provides the `Queue` class in the `dart:collection` library.
+   - Example:
+
+   ```dart
+   import 'dart:collection';
+
+   Queue<int> queue = Queue();
+   queue.add(1); // Add element to the end of the queue
+   queue.removeFirst(); // Remove element from the front of the queue
+   ```
+
+These collection types in Dart provide developers with flexible and efficient ways to store, manipulate, and access data in their applications, depending on the specific requirements and use cases.
+
+## Basics of Asynchronous Programming
+Asynchronous programming in Flutter allows us to perform tasks concurrently without blocking the main thread, enabling the app to remain responsive while executing time-consuming operations such as network requests, file I/O, or database queries. 
+Dart, the programming language used in Flutter, provides built-in support for asynchronous programming through features like async and await.
+
+1. **Future**: 
+   - A Future represents a potential value or error that will be available at some point in the future.
+   - It is used to perform asynchronous operations and obtain their results asynchronously.
+   - You can use the `then()` method to register a callback that will be called when the future completes.
+
+   ```dart
+   Future<String> fetchData() {
+     return Future.delayed(Duration(seconds: 2), () {
+       return 'Data fetched successfully';
+     });
+   }
+
+   fetchData().then((value) {
+     print(value); // Output: Data fetched successfully
+   });
+   ```
+
+2. **async and await**:
+   - The async keyword is used to mark a function as asynchronous, allowing it to use the await keyword.
+   - The await keyword is used to pause the execution of a function until a Future completes, and then resumes the function's execution with the result of the Future.
+
+   ```dart
+   Future<String> fetchData() async {
+     await Future.delayed(Duration(seconds: 2));
+     return 'Data fetched successfully';
+   }
+
+   void fetchDataAndPrint() async {
+     String data = await fetchData();
+     print(data); // Output: Data fetched successfully
+   }
+
+   fetchDataAndPrint();
+   ```
+
+3. **Error handling**:
+   - You can use try-catch blocks to handle errors that occur during asynchronous operations.
+   - Futures can complete with either a value or an error, and you can use the catchError() method to handle errors.
+
+   ```dart
+   Future<void> fetchData() async {
+     try {
+       // Simulate an error
+       throw Exception('An error occurred');
+     } catch (e) {
+       print('Error: $e'); // Output: Error: Exception: An error occurred
+     }
+   }
+
+   fetchData();
+   ```
+
+4. **Concurrency**:
+   - Asynchronous programming allows you to execute multiple asynchronous tasks concurrently.
+   - You can use features like Future.wait() to wait for multiple futures to complete simultaneously.
+
+   ```dart
+   Future<void> fetchData() async {
+     List<Future<String>> futures = [
+       Future.delayed(Duration(seconds: 2), () => 'Data 1'),
+       Future.delayed(Duration(seconds: 3), () => 'Data 2'),
+     ];
+
+     List<String> results = await Future.wait(futures);
+     print(results); // Output: [Data 1, Data 2]
+   }
+
+   fetchData();
+   ```
 
 ## Stateful vs Stateless widgets
 **Stateless Widgets**:
@@ -227,6 +417,79 @@ For StatelessWidget, there's only one lifecycle method:
    - Since stateless widgets don't have mutable state, they only need to define their UI structure in the build method, which is called whenever the widget needs to rebuild its UI.
 
 > These lifecycle methods provide hooks for performing various tasks at different stages of the widget's lifecycle, allowing you to manage state, perform setup and cleanup, and update the UI as needed.
+
+## BuildContext
+It represents the location of a widget within the widget tree. It provides access to information about the widget's location and allows you to interact with other widgets in the tree.
+Everything in Flutter is a widget. Whether it is a container, text, button, providers, image, etc., everything is virtually a widget, no matter if they display a UI in the app or not.
+
+> In Flutter, the visual presentation, known as the user interface (UI), is constructed from stacks of widgets commonly referred to as a "widget tree.
+
+Key points:
+
+1. **Location in the Widget Tree**:
+   - Each widget in the Flutter widget tree has its own BuildContext, which identifies its position within the tree.
+   - The BuildContext represents the widget's relationship with its parent, siblings, and children in the widget hierarchy.
+
+2. **Accessing Theme and Localization**:
+   - BuildContext provides access to the theme data and localization data defined higher up in the widget tree using the Theme and MaterialApp/WidgetsApp widgets.
+   - This allows widgets to retrieve theme-related information such as colors, fonts, and text direction based on their location in the widget tree.
+
+3. **Navigating the Widget Tree**:
+   - BuildContext allows you to navigate up and down the widget tree to access parent, sibling, or child widgets.
+   - You can use methods like `BuildContext.parent`, `BuildContext.ancestorWidgetOfExactType`, and `BuildContext.findAncestorStateOfType` to locate specific widgets or their associated state objects.
+
+4. **Building Widgets**:
+   - BuildContext is passed to the build() method of stateless and stateful widgets, allowing them to build their UI based on their current context.
+   - Widgets use the context to obtain information about the widget tree and its configuration when constructing their UI.
+
+5. **Creating New Widgets**:
+   - BuildContext is also used to create new widgets within the build() method of existing widgets.
+   - You can use methods like `BuildContext.build` or `BuildContext.inheritFromWidgetOfExactType` to create and return new widgets with specific configurations.
+
+## Hot restart vs Hot reload
+### Hot Reload:
+Developers make changes to their Flutter code and see those changes reflected almost instantly in the running app. Tries to only changed the widgets and keep the state.
+With Hot Reload, the app state is preserved, meaning that any stateful changes (such as text entered into a text field) are maintained across reloads.
+It's a quick way to iterate on UI changes, fix bugs, and experiment with code without losing the current state of the app.
+
+### Hot Restart:
+Completely restarts the Flutter app. Recompiled and restarted from scratch. The app state is reset to its initial state. This means that any stateful changes made during the previous session are lost. Re run the *main function*.
+Hot Restart is useful when you've made changes that require modifications to the app's structure, such as adding or removing dependencies, modifying the app's entry point, or changing platform-specific code.
+It involves recompiling and restarting the entire app. Both offer different advantages depending on the situation.
+
+## What packages did you use?
+- GraphQL Flutter
+- Cupertino Icons
+- Google Fonts
+- SVG Flutter
+- Flutter Native Splash
+
+### Packages vs plugins
+#### Packages:
+A package is a collection of Dart files that provides a set of functionalities or features that can be easily integrated.
+- Can be published to the Dart package repository (pub.dev) for others to use, or they can be private and used only within your own projects.
+- Typically contain reusable code, such as utility functions, UI components, API wrappers, or other Dart libraries.
+> Examples of packages include **http** for making HTTP requests, **shared_preferences** for storing simple data persistently, and **flutter_bloc** for implementing the BLoC state management pattern.
+
+#### Plugins:
+Plugins in Flutter are similar to packages but are specifically designed to interact with native code on the platform level (Android or iOS).
+Plugins typically wrap native code libraries (written in Java/Kotlin for Android or Objective-C/Swift for iOS) and expose their functionalities to Dart code in Flutter.
+Plugins are used when you need to access platform-specific features that are not available through Flutter's existing APIs.
+> Examples of plugins include **camera** for accessing the device's camera, **firebase_core** for integrating Firebase services, and **location** for retrieving the device's location.
+
+## Build Types
+It's refer to different configurations of app's build settings for different environments, such as development, testing, staging, and production. These build types are defined in your app's build.gradle file (for Android) and Info.plist file (for iOS), and they determine various aspects of the build process, including optimization levels, signing configurations, and resource handling.
+
+### Debug
+Used for development purposes. It typically includes debugging symbols, minimal optimizations, and additional development features like *hot reload*. Debug builds are not optimized for performance but provide a fast development cycle.
+### Release
+Optimized for performance and size. They exclude debugging symbols and enable various compiler optimizations to make the app run faster and consume less memory. *Release builds are suitable for production deployment.*
+### Profile
+Optimized for profiling and performance analysis. They include some level of optimization but still retain debugging information to allow for profiling and performance monitoring tools to gather data. Profile builds are useful for identifying performance bottlenecks in your app.
+### Custom Build Types
+Tailored for specific requirements. For example, you might create a "staging" build type with configurations specific to your staging environment, such as pointing to a different API endpoint or enabling additional logging.
+
+> Each build type can have its own set of configurations, such as signing keys, package names, and resource directories, allowing you to customize your app's behavior and appearance for different deployment scenarios. When you run `flutter run` or `flutter build`, you can specify the desired build type using the `--release`, `--profile`, or `--debug` flags, or by specifying a custom build type if you've defined one.
 
 ## runApp() vs main() 
 They serve different purposes:
