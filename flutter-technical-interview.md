@@ -1,3 +1,14 @@
+---
+title: "Understanding Flutter"
+author: Martin Estanislao Escalante Leiva
+date: May 1st, 2024
+geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
+output:
+  pdf_document:
+    latex_engine: latex
+
+---
+
 # Understanding Flutter: 
 A Comprehensive Exploration of Key Concepts and Lifecycles
 
@@ -8,12 +19,15 @@ A Comprehensive Exploration of Key Concepts and Lifecycles
 - OOP Concepts x
 - Dart Collections x
 - Basics of Asynchronous Programming x
+- Widgets x
 - Stateful vs Stateless widgets x
 - Lifecycle methods x
 - BuildContext x
-- Packages vs plugins
-- Hot reload & Hot restart 
-- UI (Scaffold, Row, Column...)
+- Packages vs plugins x
+- Hot reload & Hot restart x
+- Build Types x
+- runApp() vs main() x
+- UI (Scaffold, Row, Column...) x
 - State management (Provider, BloC)
 - GIT
 
@@ -41,7 +55,7 @@ A Comprehensive Exploration of Key Concepts and Lifecycles
 ## Clean Code and folder organization  
 [video](https://www.youtube.com/watch?v=MQ1_wPyVLVc)
 
-## What is Flutter?
+# What is Flutter?
 Flutter is an open-source UI software development toolkit created by Google, open source. It enables developers to build natively compiled applications for mobile, web, and desktop from a single codebase.
 
 1. **Hot Reload**: Developers to instantly see the changes they make to the code reflected in the app without having to restart it, making the development process faster and more efficient.
@@ -54,7 +68,7 @@ Flutter is an open-source UI software development toolkit created by Google, ope
 4. **High Performance**: Flutter uses a compiled programming language (Dart) and a graphics engine (Skia) to render UI elements directly on the canvas, bypassing the *OEM widgets used by traditional mobile frameworks*. This approach results in high performance and smooth animations, even on less powerful devices. Additionally, Flutter's architecture enables it to achieve consistent 60 frames per second (fps) performance, providing users with a smooth and responsive experience across different platforms.
 > Many mobile development frameworks rely on the native widgets provided by the operating system (such as UIKit for iOS or Android SDK for Android) to render UI elements. These widgets are often designed specifically for their respective platforms and are tightly integrated with the operating system. In contrast, Flutter takes a different approach. It doesn't use these native widgets directly. Instead, it provides its own set of widgets that are rendered directly on the canvas using *Skia, a 2D graphics engine*. This allows Flutter to achieve high performance and consistent behavior across different platforms, as it doesn't rely on platform-specific widgets and rendering mechanisms.
 
-## Dart
+# Dart
 Dart is a programming language developed by Google, designed for building web, server, and mobile applications. 
 Dart is the programming language used to develop Flutter apps.
 
@@ -84,7 +98,7 @@ Key features and characteristics:
 
 Overall, Dart is a modern, expressive, and productive language that offers a powerful set of features for building a variety of applications across different platforms. Its simplicity, flexibility, and strong tooling make it an attractive choice for developers looking to build high-quality software efficiently.
 
-## OOP Concepts
+# OOP Concepts
 
 Dart is an object-oriented programming (OOP) language, meaning it supports the fundamental principles of OOP. Here are the main OOP concepts in Dart:
 
@@ -185,7 +199,7 @@ Dart is an object-oriented programming (OOP) language, meaning it supports the f
    }
    ```
 
-## Dart Collections
+# Dart Collections
 Dart provides a variety of collection types to store and manipulate data.
 
 1. **List**:
@@ -244,7 +258,7 @@ Dart provides a variety of collection types to store and manipulate data.
 
 These collection types in Dart provide developers with flexible and efficient ways to store, manipulate, and access data in their applications, depending on the specific requirements and use cases.
 
-## Basics of Asynchronous Programming
+# Basics of Asynchronous Programming
 Asynchronous programming in Flutter allows us to perform tasks concurrently without blocking the main thread, enabling the app to remain responsive while executing time-consuming operations such as network requests, file I/O, or database queries. 
 Dart, the programming language used in Flutter, provides built-in support for asynchronous programming through features like async and await.
 
@@ -318,7 +332,7 @@ Dart, the programming language used in Flutter, provides built-in support for as
    fetchData();
    ```
 
-## Widgets
+# Widgets
 In Flutter, it is not a component, rather it is a widget. A widget is responsible for a small unit in a Flutter app. As in SPAs, the widget tree has a root widget. This is the widget from which other widgets are stacked upon, meaning there will also be parent widgets and child widgets.
 
 A widget that renders another widget is the parent widget, which renders the the child widget. The MyApp widget is usually the root widget.
@@ -339,7 +353,7 @@ In the example: The MyApp is the root widget, and it is the parent of all the wi
 
 So, we can say that MyApp is the parent of Container, and that the Container is the parent of Row and the child of MyApp. The Row is the child of Container and parent of Text and FlatButton. Text and FlatButton are the children of Row.
 
-## Stateful vs Stateless widgets
+# Stateful vs Stateless widgets
 **Stateless Widgets**:
 - Don't maintain any internal state.
 - Immutable, meaning their properties (parameters) cannot change once they are initialized.
@@ -406,8 +420,8 @@ class _CounterState extends State<Counter> {
 
 > In addition to the states differences it also involves that stateful widgets have **lifecycle methods**.
 
-## Lifecycle methods
-### Methods for StatefulWidgets:
+# Lifecycle methods
+## Methods for StatefulWidgets:
 1. **initState()**:
    - Called when the stateful widget is inserted into the widget tree for the first time.
    - Typically used to initialize state variables or to perform any setup that needs to be done once when the widget is created.
@@ -439,7 +453,7 @@ For StatelessWidget, there's only one lifecycle method:
 
 > These lifecycle methods provide hooks for performing various tasks at different stages of the widget's lifecycle, allowing you to manage state, perform setup and cleanup, and update the UI as needed.
 
-## BuildContext
+# BuildContext
 It represents the location of a widget within the widget tree. It provides access to information about the widget's location and allows you to interact with other widgets in the tree.
 Everything in Flutter is a widget. Whether it is a container, text, button, providers, image, etc., everything is virtually a widget, no matter if they display a UI in the app or not.
 
@@ -467,66 +481,65 @@ Key points:
    - BuildContext is also used to create new widgets within the build() method of existing widgets.
    - You can use methods like `BuildContext.build` or `BuildContext.inheritFromWidgetOfExactType` to create and return new widgets with specific configurations.
 
-## Hot restart vs Hot reload
-### Hot Reload:
-Developers make changes to their Flutter code and see those changes reflected almost instantly in the running app. Tries to only changed the widgets and keep the state.
-With Hot Reload, the app state is preserved, meaning that any stateful changes (such as text entered into a text field) are maintained across reloads.
-It's a quick way to iterate on UI changes, fix bugs, and experiment with code without losing the current state of the app.
-
-### Hot Restart:
-Completely restarts the Flutter app. Recompiled and restarted from scratch. The app state is reset to its initial state. This means that any stateful changes made during the previous session are lost. Re run the *main function*.
-Hot Restart is useful when you've made changes that require modifications to the app's structure, such as adding or removing dependencies, modifying the app's entry point, or changing platform-specific code.
-It involves recompiling and restarting the entire app. Both offer different advantages depending on the situation.
-
+# Packages vs plugins
 ## What packages did you use?
 - GraphQL Flutter
 - Cupertino Icons
 - Google Fonts
 - SVG Flutter
 - Flutter Native Splash
-
-### Packages vs plugins
-#### Packages:
+## Packages:
 A package is a collection of Dart files that provides a set of functionalities or features that can be easily integrated.
 - Can be published to the Dart package repository (pub.dev) for others to use, or they can be private and used only within your own projects.
 - Typically contain reusable code, such as utility functions, UI components, API wrappers, or other Dart libraries.
 > Examples of packages include **http** for making HTTP requests, **shared_preferences** for storing simple data persistently, and **flutter_bloc** for implementing the BLoC state management pattern.
 
-#### Plugins:
+## Plugins:
 Plugins in Flutter are similar to packages but are specifically designed to interact with native code on the platform level (Android or iOS).
 Plugins typically wrap native code libraries (written in Java/Kotlin for Android or Objective-C/Swift for iOS) and expose their functionalities to Dart code in Flutter.
 Plugins are used when you need to access platform-specific features that are not available through Flutter's existing APIs.
 > Examples of plugins include **camera** for accessing the device's camera, **firebase_core** for integrating Firebase services, and **location** for retrieving the device's location.
 
-## Build Types
+# Hot restart vs Hot reload
+## Hot Reload:
+Developers make changes to their Flutter code and see those changes reflected almost instantly in the running app. Tries to only changed the widgets and keep the state.
+With Hot Reload, the app state is preserved, meaning that any stateful changes (such as text entered into a text field) are maintained across reloads.
+It's a quick way to iterate on UI changes, fix bugs, and experiment with code without losing the current state of the app.
+
+## Hot Restart:
+Completely restarts the Flutter app. Recompiled and restarted from scratch. The app state is reset to its initial state. This means that any stateful changes made during the previous session are lost. Re run the *main function*.
+Hot Restart is useful when you've made changes that require modifications to the app's structure, such as adding or removing dependencies, modifying the app's entry point, or changing platform-specific code.
+It involves recompiling and restarting the entire app. Both offer different advantages depending on the situation.
+
+# Build Types
 It's refer to different configurations of app's build settings for different environments, such as development, testing, staging, and production. These build types are defined in your app's build.gradle file (for Android) and Info.plist file (for iOS), and they determine various aspects of the build process, including optimization levels, signing configurations, and resource handling.
 
-### Debug
+## Debug
 Used for development purposes. It typically includes debugging symbols, minimal optimizations, and additional development features like *hot reload*. Debug builds are not optimized for performance but provide a fast development cycle.
-### Release
+## Release
 Optimized for performance and size. They exclude debugging symbols and enable various compiler optimizations to make the app run faster and consume less memory. *Release builds are suitable for production deployment.*
-### Profile
+## Profile
 Optimized for profiling and performance analysis. They include some level of optimization but still retain debugging information to allow for profiling and performance monitoring tools to gather data. Profile builds are useful for identifying performance bottlenecks in your app.
-### Custom Build Types
+## Custom Build Types
 Tailored for specific requirements. For example, you might create a "staging" build type with configurations specific to your staging environment, such as pointing to a different API endpoint or enabling additional logging.
 
 > Each build type can have its own set of configurations, such as signing keys, package names, and resource directories, allowing you to customize your app's behavior and appearance for different deployment scenarios. When you run `flutter run` or `flutter build`, you can specify the desired build type using the `--release`, `--profile`, or `--debug` flags, or by specifying a custom build type if you've defined one.
 
-## runApp() vs main() 
+# runApp() vs main() 
 They serve different purposes:
-### `main()` function
+## `main()` function
 - The entry point of a Dart application, including Flutter apps.
 - It's similar to the `main()` function in many other programming languages, except Javascript and Python
 - Starting point of the program's execution.
 - In Flutter, the `main()` function typically calls `runApp()` to start the app's execution by passing it the root widget of the application.
 
-### `runApp()` function
+## `runApp()` function
 - `runApp()` is a function provided by the Flutter framework, and its purpose is to run the given widget as the root of the widget tree.
 - It initializes the Flutter framework and starts the execution of the Flutter application.
 - `runApp()` takes a widget (usually a `MaterialApp` or `CupertinoApp`) as its argument, which represents the root of the widget tree for the Flutter application.
 - Widgets in Flutter are hierarchical, and the widget passed to `runApp()` serves as the top-level widget, containing all other widgets in the application.
 
-#### Typical structure of a Flutter application:
+### Typical structure of a Flutter application:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -562,3 +575,181 @@ class MyHomePage extends StatelessWidget {
 
 In this example, `main()` is the entry point of the Flutter app, and it calls `runApp()` with an instance of `MyApp` as its argument. `MyApp` is a widget that extends `MaterialApp` and serves as the root of the widget tree. The `MaterialApp` widget then contains `MyHomePage` as its `home` property, and `MyHomePage` contains the UI elements of the home page.
 
+# UI
+The user interface (UI) is built using a variety of widgets that represent different elements, such as layouts, controls, text, images, and more. Some common UI widgets in Flutter:
+
+1. **Scaffold**:
+   - Scaffold is a layout widget that provides a basic structure for implementing material design layouts.
+   - It typically includes features like an app bar, a body, floating action buttons, drawers, and bottom navigation bars.
+   - Scaffold simplifies the process of creating common app layouts by providing pre-defined components and layout structure.
+
+   ```dart
+   import 'package:flutter/material.dart';
+
+   void main() {
+     runApp(MyApp());
+   }
+
+   class MyApp extends StatelessWidget {
+     @override
+     Widget build(BuildContext context) {
+       return MaterialApp(
+         home: Scaffold(
+           appBar: AppBar(
+             title: Text('Scaffold Example'),
+           ),
+           body: Center(
+             child: Text('Hello, Flutter!'),
+           ),
+         ),
+       );
+     }
+   }
+   ```
+
+2. **Row**:
+   - Row is a layout widget that arranges its children widgets horizontally in a single row.
+   - Children widgets are positioned side by side, and their sizes can be adjusted using properties like mainAxisAlignment and crossAxisAlignment.
+
+   ```dart
+   Row(
+     mainAxisAlignment: MainAxisAlignment.center,
+     children: <Widget>[
+       Text('Hello'),
+       Text('World'),
+     ],
+   )
+   ```
+
+3. **Column**:
+   - Column is a layout widget that arranges its children widgets vertically in a single column.
+   - Children widgets are stacked one on top of the other, and their sizes can be adjusted using properties like mainAxisAlignment and crossAxisAlignment.
+
+   ```dart
+   Column(
+     mainAxisAlignment: MainAxisAlignment.center,
+     children: <Widget>[
+       Text('Hello'),
+       Text('World'),
+     ],
+   )
+   ```
+
+4. **Container**:
+   - Container is a versatile layout widget that allows you to customize its appearance, size, padding, margin, and decoration.
+   - It can contain a single child widget and is often used to apply styling and layout properties to its child.
+
+   ```dart
+   Container(
+     color: Colors.blue,
+     padding: EdgeInsets.all(16.0),
+     child: Text('This is a container'),
+   )
+   ```
+
+A list of common widgets in Flutter:
+
+Of course! Here's the list of Flutter widgets and their descriptions formatted into a 2-column table:
+
+| Widget Name            | Brief Description                                                     |
+|------------------------|-----------------------------------------------------------------------|
+| AbsorbPointer          | Ignores pointer events but passes them along                          |
+| ActionChip             | Represents a chip that performs an action                             |
+| AlertDialog            | Dialog with a title, content, and actions                             |
+| Align                  | Aligns its child within itself                                        |
+| Alignment              | Represents a point in a 2D coordinate system                         |
+| AlignmentDirectional   | Represents a point in a 2D coordinate system (RTL support)            |
+| AnimatedBuilder        | Animates a widget over a period of time                               |
+| AnimatedContainer      | Animates the transformation of a container                            |
+| AnimatedCrossFade      | Cross-fades between two children                                      |
+| AnimatedDefaultTextStyle | Animates the default text style                                     |
+| AnimatedList           | A scrolling container that animates items                            |
+| AnimatedOpacity        | Animates the opacity of a widget                                      |
+| AnimatedPadding        | Animates its padding                                                 |
+| AnimatedPhysicalModel  | Animates the parameters of a physical model                          |
+| AnimatedPositioned     | Animates the position of a widget                                    |
+| AnimatedSize           | Animates the size of a widget                                        |
+| AnimatedSwitcher       | Switches between two children with a fade                            |
+| AnimatedTheme          | Animates the properties of a theme                                   |
+| AppBar                 | Material design app bar                                              |
+| AspectRatio            | Adjusts its child to match a given aspect ratio                      |
+| AssetsImage            | Displays an image from an asset                                      |
+| BackButton             | A button with a "back" icon                                          |
+| BottomAppBar           | An app bar that integrates with a bottom navigation bar              |
+| BottomNavigationBar    | A bottom navigation bar                                               |
+| BottomNavigationBarItem | An item within a bottom navigation bar                               |
+| BottomSheet            | A panel that slides in from the bottom                               |
+| ButtonBar              | A horizontal arrangement of buttons                                  |
+| ButtonBarThemeData     | Defines the theme for ButtonBar widgets                              |
+| ButtonTheme            | Applies a button theme to descendant widgets                        |
+| ButtonThemeData        | Defines the theme for buttons                                        |
+| Card                   | Material design card                                                 |
+| Center                 | Aligns its child to the center of the parent                         |
+| Checkbox               | A material design checkbox                                           |
+| Chip                   | Represents a small, interactive, material design element             |
+| ChipThemeData          | Defines the theme for Chip widgets                                   |
+| CircleAvatar           | A circular user profile picture                                      |
+| ClipOval               | Clips its child to an oval shape                                     |
+| ClipPath               | Clips its child using a custom clipper                               |
+| ClipRect               | Clips its child to a rectangular shape                               |
+| CloseButton            | A button with a "close" icon                                         |
+| CloseButtonIcon        | Icon used by the CloseButton                                          |
+| CloseButtonTheme       | Theme for CloseButton                                                 |
+| ColorScheme            | Defines a color scheme for a set of UI components                    |
+| Column                 | A vertical arrangement of widgets                                     |
+| ConstrainedBox         | Forces its child to have a specific width and/or height              |
+| Container              | A convenience widget for styling and positioning                     |
+| CrossAxisAlignment      | Aligns children along the cross axis                                  |
+| CupertinoActionSheet   | A sheet of options displayed to the user                              |
+| CupertinoActivityIndicator | An iOS-style activity indicator                                     |
+| CupertinoAlertDialog   | An iOS-style alert dialog                                            |
+| CupertinoButton        | An iOS-style button                                                  |
+| CupertinoColors        | Cupertino color constants                                            |
+| CupertinoContextMenuAction | An action in a context menu                                        |
+| CupertinoContextMenuActionStyle | Style for CupertinoContextMenuAction                                  |
+| CupertinoContextMenuDivider | Divider in a context menu                                          |
+| CupertinoContextMenuSection | A section in a context menu                                         |
+| CupertinoContextMenuSheet | A context menu sheet                                                  |
+| CupertinoDatePicker    | An iOS-style date picker                                             |
+| CupertinoDialogAction  | A button used in a Cupertino dialog                                  |
+| CupertinoDialogThemeData | Defines the theme for CupertinoDialog widgets                        |
+| CupertinoIcons         | Cupertino icon constants                                             |
+| CupertinoPageScaffold  | An iOS-style page layout                                             |
+| CupertinoPicker        | An iOS-style picker control                                          |
+| CupertinoPopupSurface  | A rounded surface with an elevation, typically used for pop-up menus |
+| CupertinoScrollbar     | A scrollbar with a Cupertino style                                   |
+| CupertinoSlider        | An iOS-style slider control                                          |
+| CupertinoSwitch        | An iOS-style switch control                                          |
+| CupertinoTabBar        | An iOS-style tab bar                                                 |
+| CupertinoTabScaffold   | An iOS-style tabbed navigation layout                                |
+| CupertinoTabView       | An iOS-style tab view                                                |
+| CupertinoTextField     | An iOS-style text field                                              |
+| CupertinoTheme         | Cupertino theme data                                                 |
+| CupertinoTimerPicker   | An iOS-style timer picker                                            |
+| CustomMultiChildLayout | A widget that uses a delegate to size and position multiple children |
+| CustomPaint            | Provides a canvas on which to draw during the paint phase            |
+| CustomScrollView       | A ScrollView that creates custom scroll effects using slivers        |
+| DataTable              | Displays data in a tabular format                                    |
+| DateUtils              | Date utilities for working with dates                                |
+| DecoratedBox           | Decorates its child with a decoration                                |
+| DefaultTabController  | Manages the state of a TabBar and TabBarView                       |
+| Dismissible           | A widget that can be dismissed by dragging                         |
+| Divider               | A thin horizontal line                                              |
+| Drawer                | A material design drawer                                            |
+| DrawerHeader          | A drawer header with an optional account name, email, and current account picture |
+
+# State management (Provider, BloC)
+State management refers to the management of data and UI state within an application.
+There are various approaches to state management in Flutter, two of the most popular being Provider and BLoC (Business Logic Component).
+
+1. **Provider**:
+   - Simple, flexible, and lightweight state management solution that is built into Flutter. It follows the InheritedWidget pattern to propagate data down the widget tree.
+   - With Provider, you can use a Provider class to expose data to descendant widgets and rebuild UI components whenever the underlying data changes.
+   - Provider is often favored for its simplicity and ease of use, especially for smaller to medium-sized applications or when you have a relatively small amount of shared state.
+   - It's worth noting that Provider can be used in conjunction with other state management techniques, such as ChangeNotifier or Riverpod, to handle more complex state scenarios.
+
+2. **BLoC (Business Logic Component)**:
+   - BLoC is a pattern for managing state in Flutter applications, focusing on separating business logic from presentation logic.
+   - With BLoC, you create classes called "BLoCs" that are responsible for managing the application's state and business logic. These BLoCs typically expose Streams or StreamControllers to communicate changes in state to UI components.
+   - BLoC often works hand-in-hand with Streams and StreamBuilder widgets to listen for changes in state and update the UI accordingly.
+   - BLoC is favored for its separation of concerns and scalability, making it suitable for larger and more complex applications where state management needs to be more structured and maintainable.
