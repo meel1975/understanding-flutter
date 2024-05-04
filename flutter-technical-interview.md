@@ -318,6 +318,27 @@ Dart, the programming language used in Flutter, provides built-in support for as
    fetchData();
    ```
 
+## Widgets
+In Flutter, it is not a component, rather it is a widget. A widget is responsible for a small unit in a Flutter app. As in SPAs, the widget tree has a root widget. This is the widget from which other widgets are stacked upon, meaning there will also be parent widgets and child widgets.
+
+A widget that renders another widget is the parent widget, which renders the the child widget. The MyApp widget is usually the root widget.
+
+```
+              MyApp
+                |
+            Container
+                |
+               Row
+                |
+            ----------
+            |        |
+          Text   FlatButton
+```
+
+In the example: The MyApp is the root widget, and it is the parent of all the widgets in the tree. The MyApp widget renders the Container widget, and the Container widget renders the Row widget. The Row widget renders both Text and FlatButton widgets.
+
+So, we can say that MyApp is the parent of Container, and that the Container is the parent of Row and the child of MyApp. The Row is the child of Container and parent of Text and FlatButton. Text and FlatButton are the children of Row.
+
 ## Stateful vs Stateless widgets
 **Stateless Widgets**:
 - Don't maintain any internal state.
