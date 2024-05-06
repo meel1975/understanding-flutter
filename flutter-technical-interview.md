@@ -410,6 +410,7 @@ class _CounterState extends State<Counter> {
 > In addition to the states differences it also involves that stateful widgets have **lifecycle methods**.
 
 # Lifecycle methods
+
 ## Methods for StatefulWidgets:
 1. **initState()**:
    - Called when the stateful widget is inserted into the widget tree for the first time.
@@ -471,12 +472,14 @@ Key points:
    - You can use methods like `BuildContext.build` or `BuildContext.inheritFromWidgetOfExactType` to create and return new widgets with specific configurations.
 
 # Packages vs plugins
+
 ## What packages did you use?
 - GraphQL Flutter
 - Cupertino Icons
 - Google Fonts
 - SVG Flutter
 - Flutter Native Splash
+
 ## Packages:
 A package is a collection of Dart files that provides a set of functionalities or features that can be easily integrated.
 - Can be published to the Dart package repository (pub.dev) for others to use, or they can be private and used only within your own projects.
@@ -487,9 +490,11 @@ A package is a collection of Dart files that provides a set of functionalities o
 Plugins in Flutter are similar to packages but are specifically designed to interact with native code on the platform level (Android or iOS).
 Plugins typically wrap native code libraries (written in Java/Kotlin for Android or Objective-C/Swift for iOS) and expose their functionalities to Dart code in Flutter.
 Plugins are used when you need to access platform-specific features that are not available through Flutter's existing APIs.
+
 > Examples of plugins include **camera** for accessing the device's camera, **firebase_core** for integrating Firebase services, and **location** for retrieving the device's location.
 
 # Hot restart vs Hot reload
+
 ## Hot Reload:
 Developers make changes to their Flutter code and see those changes reflected almost instantly in the running app. Tries to only changed the widgets and keep the state.
 With Hot Reload, the app state is preserved, meaning that any stateful changes (such as text entered into a text field) are maintained across reloads.
@@ -505,10 +510,13 @@ It's refer to different configurations of app's build settings for different env
 
 ## Debug
 Used for development purposes. It typically includes debugging symbols, minimal optimizations, and additional development features like *hot reload*. Debug builds are not optimized for performance but provide a fast development cycle.
+
 ## Release
 Optimized for performance and size. They exclude debugging symbols and enable various compiler optimizations to make the app run faster and consume less memory. *Release builds are suitable for production deployment.*
+
 ## Profile
 Optimized for profiling and performance analysis. They include some level of optimization but still retain debugging information to allow for profiling and performance monitoring tools to gather data. Profile builds are useful for identifying performance bottlenecks in your app.
+
 ## Custom Build Types
 Tailored for specific requirements. For example, you might create a "staging" build type with configurations specific to your staging environment, such as pointing to a different API endpoint or enabling additional logging.
 
@@ -516,6 +524,7 @@ Tailored for specific requirements. For example, you might create a "staging" bu
 
 # runApp() vs main() 
 They serve different purposes:
+
 ## `main()` function
 - The entry point of a Dart application, including Flutter apps.
 - It's similar to the `main()` function in many other programming languages, except Javascript and Python
@@ -523,6 +532,7 @@ They serve different purposes:
 - In Flutter, the `main()` function typically calls `runApp()` to start the app's execution by passing it the root widget of the application.
 
 ## `runApp()` function
+
 - `runApp()` is a function provided by the Flutter framework, and its purpose is to run the given widget as the root of the widget tree.
 - It initializes the Flutter framework and starts the execution of the Flutter application.
 - `runApp()` takes a widget (usually a `MaterialApp` or `CupertinoApp`) as its argument, which represents the root of the widget tree for the Flutter application.
